@@ -1,0 +1,9 @@
+.forms {
+  display: flex;
+  padding-top: 10vh;
+  justify-content: center;
+}
+
+.forms form > * {
+  margin-bottom: 1vh; 
+}
