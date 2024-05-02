@@ -4,7 +4,7 @@ import Finalization from './pages/Finalization';
 import Register from './pages/Register';
 import Listing from './pages/Listing';
 import Sidebar from './components/Sidebar';
-import './index.css';
+import './styles/index.css';
 
 function App() {
   return (
