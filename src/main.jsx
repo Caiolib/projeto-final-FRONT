@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { ListDelivery } from './pages/list-delivery'
+import { StatusDelivery } from './pages/status-delivery'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,11 @@ const router = createBrowserRouter([
         path: "/listar-entregas",
         element: <ListDelivery />,
       },
+      {
+        path: "/alterar-status-entrega",
+        element: <StatusDelivery />,
+      },
+      
     ]
   },
   

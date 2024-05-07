@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { RegisterDelivery } from './pages/register-delivery';
 import { ToastContainer, toast } from 'react-toastify';
 import { ListDelivery } from './pages/list-delivery';
+import { StatusDelivery } from './pages/status-delivery';
 
 function App() {
   
@@ -14,11 +15,13 @@ function App() {
       <div className='nav-bar-container'>
         <a href="/registrar-entrega" className={'menu ' + (window.location.pathname == "/registrar-entrega" ? "active" : "") }>Registrar Entrega</a>
         <a href="/listar-entregas" className={'menu ' + (window.location.pathname == "/listar-entregas" ? "active" : "") }>Listar Entregas</a>
+        <a href="/alterar-status-entrega" className={'menu ' + (window.location.pathname == "/alterar-status-entrega" ? "active" : "") }>Alterar Status Entrega</a>
       </div>
 
       <Routes>
         <Route path="registrar-entrega" Component={ RegisterDelivery } />  
-        <Route path="listar-entregas" Component={ ListDelivery } />      
+        <Route path="listar-entregas" Component={ ListDelivery } />     
+        <Route path="alterar-status-entrega" Component={ StatusDelivery } /> 
       </Routes>
 
     </StyleWrapper>
