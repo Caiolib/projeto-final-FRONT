@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import styled from "styled-components"
 import { RegisterDelivery } from './pages/register-delivery';
 import { ToastContainer, toast } from 'react-toastify';
+import { ListDelivery } from './pages/list-delivery';
 
 function App() {
   
@@ -12,10 +13,12 @@ function App() {
       <ToastContainer/>
       <div className='nav-bar-container'>
         <a href="/registrar-entrega" className={'menu ' + (window.location.pathname == "/registrar-entrega" ? "active" : "") }>Registrar Entrega</a>
+        <a href="/listar-entregas" className={'menu ' + (window.location.pathname == "/listar-entregas" ? "active" : "") }>Listar Entregas</a>
       </div>
 
       <Routes>
-        <Route path="registrar-entrega" Component={ RegisterDelivery } />        
+        <Route path="registrar-entrega" Component={ RegisterDelivery } />  
+        <Route path="listar-entregas" Component={ ListDelivery } />      
       </Routes>
 
     </StyleWrapper>
