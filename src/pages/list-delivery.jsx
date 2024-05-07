@@ -31,6 +31,18 @@ export function ListDelivery() {
         toast.error("Não foi possível carregar as entregas!", {position: "bottom-right"})
     })
   }
+async function delete_(id) {
+    let data = await fetch(`http://localhost:8080/delivery?idDelivery=`+id, {
+        method: "DELETE"
+    }).then(response => {
+        return response.json()
+    }).then(data => {
+        setData(data)
+    }).catch(response => {
+        toast.error("Não foi possível deletar a entrega!", {position: "bottom-right"})
+    })
+
+}
 
   return (
     <StyleWrapper>
@@ -46,6 +58,24 @@ export function ListDelivery() {
                         <td> Status </td>
                     </tr>
                     {data.map((delivery, index) => {
+                    {Array.isArray(data) && data.map((delivery, index) => {
+                    return (
+                    <tr key={index}>
+                        <td>{delivery.id}</td>
+                        <td>{delivery.origin}</td>
+                        <td>{delivery.destination}</td>
+                        <td>{delivery.totalPrice}</td>
+                        <td>{delivery.deliveryManId}</td>
+                        <td>{delivery.status}</td>
+                        <td>
+                            <Button variant="contained" onClick={() => delete_(delivery.id)}>
+                                Delete
+                            </Button>
+                        </td>
+                    </tr>
+                    );
+                })}
+
                     return <tr key={index}>
                         <td>{delivery.id}</td>
                         <td>{delivery.origin}</td>
@@ -53,6 +83,11 @@ export function ListDelivery() {
                         <td>{delivery.totalPrice}</td>
                         <td>{delivery.deliveryManId}</td>
                         <td>{delivery.status}</td>
+                        <td>
+                            <Button variant="contained" onClick={() => delete_(delivery.id)}>
+                                Delete
+                            </Button>
+                        </td>
                     </tr>
                     })}
                 </tbody>
