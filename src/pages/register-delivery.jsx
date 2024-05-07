@@ -15,7 +15,7 @@ export function RegisterDelivery(props) {
       method: "GET"
     }
 
-    let response = await fetch("http://localhost:8090/entregador/disponivel", options)
+    let response = await fetch("http://localhost:8080/entregador/disponivel", options)
     
     if (response.status >= 400) {
       return false
