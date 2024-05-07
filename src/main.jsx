@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './styles/index.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { RegisterDeliveryman } from './pages/register-deliveryman.jsx'
+import { RegisterDelivery } from './pages/register-delivery'
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
-import { FindDeliveryman } from './pages/find-deliveryman.jsx'
 
 const router = createBrowserRouter([
   {
@@ -17,12 +16,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/registrar-entregador",
-        element: <RegisterDeliveryman />,
-      },
-      {
-        path: "/encontrar-entregador",
-        element: <FindDeliveryman />,
+        path: "/registrar-entrega",
+        element: <RegisterDelivery />,
       },
     ]
   },
