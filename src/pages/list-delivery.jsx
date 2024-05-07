@@ -9,90 +9,67 @@ import PersonIcon from '@mui/icons-material/Person';
 
 
 export function ListDelivery() {
-  let [data, setData] = useState([])
+  let [deliveries, setDeliveries] = useState([])
 
   useEffect(() => {
     load()
   }, [])
 
-
-  
   async function load() {
-    let data = await fetch("http://localhost:8080/delivery", {
-      method: "GET"
-    }).then(response => {
+    let response = await fetch("http://localhost:8080/delivery", {method: "GET"})
 
-      return response.json()
+    if (response.status >= 400) {
+      return
+    }
 
-    }).then(data => {
-      setData(data)
-    })
-    .catch(response => {
-        toast.error("Não foi possível carregar as entregas!", {position: "bottom-right"})
-    })
+    let responseData = await response.json()
+    
+    setDeliveries(responseData)
   }
-async function delete_(id) {
-    let data = await fetch(`http://localhost:8080/delivery?idDelivery=`+id, {
-        method: "DELETE"
-    }).then(response => {
-        return response.json()
-    }).then(data => {
-        setData(data)
-    }).catch(response => {
-        toast.error("Não foi possível deletar a entrega!", {position: "bottom-right"})
-    })
 
-}
+  async function deleteDelivery(id) {
+      let data = await fetch(`http://localhost:8080/delivery/`+id, {
+          method: "DELETE"
+      }).then(response => {
+          return response.json()
+      }).then(data => {
+          setDeliveries(data)
+      }).catch(response => {
+          toast.error("Não foi possível deletar a entrega!", {position: "bottom-right"})
+      })
+
+  }
 
   return (
     <StyleWrapper>
-        <div className="card">
-            <table>
-                <tbody>
-                    <tr>
-                        <td> ID </td>
-                        <td> Origem </td>
-                        <td> Destino </td>
-                        <td> Preço </td>
-                        <td> ID Entregador </td>
-                        <td> Status </td>
-                    </tr>
-                    {data.map((delivery, index) => {
-                    {Array.isArray(data) && data.map((delivery, index) => {
-                    return (
-                    <tr key={index}>
-                        <td>{delivery.id}</td>
-                        <td>{delivery.origin}</td>
-                        <td>{delivery.destination}</td>
-                        <td>{delivery.totalPrice}</td>
-                        <td>{delivery.deliveryManId}</td>
-                        <td>{delivery.status}</td>
-                        <td>
-                            <Button variant="contained" onClick={() => delete_(delivery.id)}>
-                                Delete
-                            </Button>
-                        </td>
-                    </tr>
-                    );
-                })}
+      <h1 className="title">Listar entregas</h1>
+      <h2 className='sub-title'>Veja a baixo as entregas e suas informações</h2>
 
-                    return <tr key={index}>
-                        <td>{delivery.id}</td>
-                        <td>{delivery.origin}</td>
-                        <td>{delivery.destination}</td>
-                        <td>{delivery.totalPrice}</td>
-                        <td>{delivery.deliveryManId}</td>
-                        <td>{delivery.status}</td>
-                        <td>
-                            <Button variant="contained" onClick={() => delete_(delivery.id)}>
-                                Delete
-                            </Button>
-                        </td>
-                    </tr>
-                    })}
-                </tbody>
-            </table>
-        </div>
+      <div className="table">
+        <header>
+            <p> ID </p>
+            <p> Origem </p>
+            <p> Destino </p>
+            <p> Preço </p>
+            <p> CPF Entregador </p>
+            <p> Status </p>
+        </header>
+        {deliveries.map((delivery, index) => {
+        return (
+              <div className='data-item' key={index}>
+                  <p>{delivery.id}</p>
+                  <p>{delivery.origin}</p>
+                  <p>{delivery.destination}</p>
+                  <p>{delivery.totalPrice}</p>
+                  <p>{delivery.deliverymanCpf}</p>
+                  <p>{delivery.status}</p>
+                  <Button variant="contained" color="error" onClick={() => delete_(delivery.id)}>
+                      Delete
+                  </Button>
+              </div>
+            );
+        })}
+      </div>
     </StyleWrapper>
   )
 
@@ -105,7 +82,7 @@ display: flex;
 align-items: center;
 flex-direction: column;
 padding: 40px;
-max-width: 600px;
+max-width: 1000px;
 position: absolute;
 left: 50%;
 top: 50%;
@@ -123,12 +100,50 @@ transform: translate(-50%, -50%);
   margin-bottom: 20px;
 }
 
-.infos-container {
+.table {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
+  align-items: center;
   width: 100%;
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: scroll;
+
+}
+
+.table header {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  min-height: 40px;
+  background-color: black;
+}
+
+.table header p {
+  width: 100%;
+  border-right: solid 1px white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+}
+
+.table .data-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  min-height: 40px;
+}
+
+.table .data-item p {
+  width: 100%;
+  border-right: solid 1px white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 `
