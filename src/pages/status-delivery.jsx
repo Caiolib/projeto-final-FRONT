@@ -8,6 +8,21 @@ export function StatusDelivery(props) {
   let [cpf, setCpf] = useState("")
   let [id, setId] = useState("")
 
+  async function changeDeliverymanStatus() {
+    let options = {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({})
+    }
+
+    let response = await fetch("http://localhost:8090/liberarentregador/" + cpf, options)
+
+    if (response.status >= 400) {
+      return false
+    }
+
+    return true
+  }
 
   async function changeStatus() {
     if (!status || !cpf || !id) {
@@ -23,13 +38,17 @@ export function StatusDelivery(props) {
     }
 
     let response = await fetch(`http://localhost:8080/delivery/${id}/deliveryman/${cpf}?status=${status}`, options)
-    console.log(await response.json())
 
     if (response.status >= 400) {
       toast.error("Não foi possível alterar o status da entrega!", {position: "bottom-right"})
       return
     }
-    toast.success("Status da entrega alterado com sucesso!", {position: "bottom-right"})
+    
+    if (await changeDeliverymanStatus()) {
+      toast.success("Status da entrega alterado com sucesso!", {position: "bottom-right"})
+    } else {
+      toast.error("Erro ao liberar entregador", {position: "bottom-right"})
+    }
   }
 
   return (
