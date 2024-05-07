@@ -10,7 +10,7 @@ export function StatusDelivery(props) {
 
 
   async function changeStatus() {
-    if (!status || !cpf) {
+    if (!status || !cpf || !id) {
       toast.error("Preencha todas as informações corretamente!", {position: "bottom-right"})
       return 
     }
@@ -19,12 +19,10 @@ export function StatusDelivery(props) {
       method: "PUT",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
-        cpf,
-        status
       })
     }
 
-    let response = await fetch("http://localhost:8080/delivery", options)
+    let response = await fetch(`http://localhost:8080/delivery/${id}/deliveryman/${cpf}?status=${status}`, options)
     console.log(await response.json())
 
     if (response.status >= 400) {
@@ -41,6 +39,7 @@ export function StatusDelivery(props) {
 
       <div className='infos-container'>
       <TextField label="ID" variant="outlined" value={id} onChange={(ev) => setId(ev.currentTarget.value)} />
+      <TextField label="Cpf" variant="outlined" value={cpf} onChange={(ev) => setCpf(ev.currentTarget.value)} />
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Status</InputLabel>
         <Select
