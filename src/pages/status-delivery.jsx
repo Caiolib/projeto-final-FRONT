@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material'
+import { Button, FormControl, InputLabel, Select, TextField, MenuItem} from '@mui/material'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import styled from "styled-components"
@@ -6,6 +6,7 @@ import styled from "styled-components"
 export function StatusDelivery(props) {
   let [status, setStatus] = useState("")
   let [cpf, setCpf] = useState("")
+  let [id, setId] = useState("")
 
 
   async function changeStatus() {
@@ -39,8 +40,19 @@ export function StatusDelivery(props) {
       
 
       <div className='infos-container'>
-        <TextField label="Cpf" variant="outlined" value={cpf} onChange={(ev) => setCpf(ev.currentTarget.value)} />
-        <TextField label="Status" variant="outlined" value={status} onChange={(ev) => setStatus(ev.currentTarget.value)} />
+        <TextField label="ID" variant="outlined" value={id} onChange={(ev) => setCpf(ev.currentTarget.value)} />
+        <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Status</InputLabel>
+        <Select
+          value={status}
+          label="Status"
+          onChange={(ev) => setCpf(ev.currentTarget.value)}
+        >
+          <MenuItem value={10}>CONFIMADO</MenuItem>
+          <MenuItem value={20}>ERRO</MenuItem>
+          <MenuItem value={30}>FINALIZADO</MenuItem>
+        </Select>
+      </FormControl>
       </div>
 
       <Button style={{width: "100%"}} variant="contained" onClick={() => changeStatus()}>Alterar status</Button>
