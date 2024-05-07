@@ -40,20 +40,21 @@ export function StatusDelivery(props) {
       
 
       <div className='infos-container'>
-        <TextField label="ID" variant="outlined" value={id} onChange={(ev) => setCpf(ev.currentTarget.value)} />
-        <FormControl fullWidth>
+      <TextField label="ID" variant="outlined" value={id} onChange={(ev) => setId(ev.currentTarget.value)} />
+      <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Status</InputLabel>
         <Select
           value={status}
           label="Status"
-          onChange={(ev) => setCpf(ev.currentTarget.value)}
+          onChange={(ev) => setStatus(ev.target.value)}
         >
-          <MenuItem value={10}>CONFIMADO</MenuItem>
-          <MenuItem value={20}>ERRO</MenuItem>
-          <MenuItem value={30}>FINALIZADO</MenuItem>
+          <MenuItem value="CONFIRMADO">CONFIRMADO</MenuItem>
+          <MenuItem value="ERRO">ERRO</MenuItem>
+          <MenuItem value="FINALIZADO">FINALIZADO</MenuItem>
         </Select>
       </FormControl>
-      </div>
+    </div>
+
 
       <Button style={{width: "100%"}} variant="contained" onClick={() => changeStatus()}>Alterar status</Button>
     </StyleWrapper>
