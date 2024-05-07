@@ -27,17 +27,22 @@ export function ListDelivery() {
     setDeliveries(responseData)
   }
 
-  async function deleteDelivery(id) {
-      let data = await fetch(`http://localhost:8080/delivery/`+id, {
-          method: "DELETE"
-      }).then(response => {
-          return response.json()
-      }).then(data => {
-          setDeliveries(data)
-      }).catch(response => {
-          toast.error("Não foi possível deletar a entrega!", {position: "bottom-right"})
-      })
+  async function deleteDelivery(id, index) {
+    let options = {
+      method: "DELETE",
+    }
 
+    let response = await fetch("http://localhost:8080/delivery/" + id, options)
+
+    if (response.status >= 400) {
+      toast.error("Não foi possível apagar a entrega")
+      return
+    }
+
+    toast.success("Entrega deletado com sucesso!")
+
+    deliveries.splice(index, 1)
+    setDeliveries([...deliveries])
   }
 
   return (
@@ -63,9 +68,7 @@ export function ListDelivery() {
                   <p>{delivery.totalPrice}</p>
                   <p>{delivery.deliverymanCpf}</p>
                   <p>{delivery.status}</p>
-                  <Button variant="contained" color="error" onClick={() => delete_(delivery.id)}>
-                      Delete
-                  </Button>
+                  <Button variant="contained" color="error" onClick={() => deleteDelivery(delivery.id, index)}>Delete</Button>
               </div>
             );
         })}
