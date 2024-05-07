@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import styled from "styled-components"
 import { RegisterDeliveryman } from './pages/register-deliveryman';
 import { ToastContainer, toast } from 'react-toastify';
+import { FindDeliveryman } from './pages/find-deliveryman';
 
 function App() {
   
@@ -12,13 +13,14 @@ function App() {
       <ToastContainer/>
       <div className='nav-bar-container'>
         <a href="/registrar-entregador" className={'menu ' + (window.location.pathname == "/registrar-entregador" ? "active" : "") }>Registrar Entregador</a>
-        <a className='menu'>Registrar Entregador</a>
+        <a href="/encontrar-entregador" className={'menu ' + (window.location.pathname == "/encontrar-entregador" ? "active" : "") }>Encontrar Entregador</a>
         <a className='menu'>Registrar Entregador</a>
         <a className='menu'>Registrar Entregador</a>
       </div>
 
       <Routes>
         <Route path="registrar-entregador" Component={ RegisterDeliveryman } />        
+        <Route path="encontrar-entregador" Component={ FindDeliveryman } />        
       </Routes>
 
     </StyleWrapper>

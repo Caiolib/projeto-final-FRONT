@@ -9,6 +9,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
+import { FindDeliveryman } from './pages/find-deliveryman.jsx'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "/registrar-entregador",
         element: <RegisterDeliveryman />,
+      },
+      {
+        path: "/encontrar-entregador",
+        element: <FindDeliveryman />,
       },
     ]
   },
